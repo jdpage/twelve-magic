@@ -110,16 +110,6 @@ void native_drop(list_t *stack, dict_t *scope) {
 }
 
 /*
- * (--)
- * prints a newline
- */
-void native_cr(list_t *stack, dict_t *scope) {
-	UNUSED(scope);
-	UNUSED(stack);
-	printf("\n");
-}
-
-/*
  * (a --)
  * ends the process with code a
  */
@@ -128,17 +118,6 @@ void native_exit(list_t *stack, dict_t *scope) {
 	UNUSED(scope);
 	a = as_number(list_pop(stack));
 	exit(a);
-}
-
-/*
- * (--)
- * ends the process
- */
-void native_bye(list_t *stack, dict_t *scope) {
-	UNUSED(stack);
-	UNUSED(scope);
-	printf("bye!\n");
-	exit(0);
 }
 
 /*
@@ -163,7 +142,5 @@ void init_core() {
 	dict_add(core_scope, "dup", mk_native(native_dup));
 	dict_add(core_scope, "drop", mk_native(native_drop));
 	dict_add(core_scope, "exit", mk_native(native_exit));
-	dict_add(core_scope, "bye", mk_native(native_bye));
-	dict_add(core_scope, "cr", mk_native(native_cr));
 	dict_add(core_scope, "emit", mk_native(native_emit));
 }
