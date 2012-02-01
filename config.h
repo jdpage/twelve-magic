@@ -1,0 +1,6 @@
+#define VERSION_YEAR 2012
+#define VERSION_MONTH 1
+#define VERSION_DAY 31
+#define VERSION_MINOR 'a'
+
+#define DEFAULT_RADIX 10
