@@ -3,17 +3,17 @@
 ## Wordlist
 
 ### Words implemented natively:
-\+ (m n -- sum)
-\- (m n -- diff)
-\* (m n -- prod)
-/  (p q -- quot)
-mod (p q -- rem)
-/mod (p q -- rem quot)
-. (n --)
-dup (x -- x x)
-drop (x --)
-exit (code --)
-emit (char --)
++ \+ (m n -- sum)
++ \- (m n -- diff)
++ \* (m n -- prod)
++ /  (p q -- quot)
++ mod (p q -- rem)
++ /mod (p q -- rem quot)
++ . (n --)
++ dup (x -- x x)
++ drop (x --)
++ exit (code --)
++ emit (char --)
 
 ### Words implemented in Twelve Magic:
 none as of yet
