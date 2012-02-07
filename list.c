@@ -1,138 +1,106 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include "util.h"
-#include "list.h"
+#include "data.h"
 
-list_t *list_new() {
-	list_t *self;
+value_t list_pop(cons_t **head) {
+	value_t val;
+	cons_t *next;
+	val = CAR(*head);
+	next = list_next(*head);
 
-	SAFE(self = NEW(list_t));
-	self->head = NULL;
-	self->tail = NULL;
+	cons_del(*head);
 
-	return self;
+	*head = next;
+	return val;
 }
 
-void list_del(list_t *self) {
-	element_t *curr, *next;
+void list_push(cons_t **head, value_t item) {
+	cons_t *cell;
+	value_t next;
+	if (*head == NULL)
+		next = null();
+	else
+		next = wrap_cons(*head);
+	cell = cons(item, next);
+	*head = cell;
+}
 
-	curr = self->head;
-
-	while (curr != NULL) {
-		next = curr->next;
-		free(curr);
-		curr = next;
+void list_free(cons_t *head) {
+	cons_t *cell;
+	while (head != NULL) {
+		cell = list_next(head);
+		cons_del(head);
+		head = cell;
 	}
-
-	free(self);
 }
 
-void list_push(list_t *self, value_t val) {
-	element_t *item;
-
-	SAFE(item = NEW(element_t));
-	item->value = val;
-	item->prev = self->tail;
-
-	if (list_empty_p(self)) {
-		self->head = item;
-	} else {
-		self->tail->next = item;
-	}
-	
-	self->tail = item;
+cons_t *list_next(cons_t *cell) {
+	if (cell == NULL)
+		return NULL;
+	return unwrap_cons(CDR(cell));
 }
 
-value_t list_pop(list_t *self) {
-	value_t value;
-
-	value = self->tail->value;
-	self->tail = self->tail->prev;
-	if (self->tail == NULL) {
-		free(self->head);
-		self->head = NULL;
-	} else {
-		free(self->tail->next);
-		self->tail->next = NULL;
-	}
-
-	return value;
+cons_t *list_link(cons_t *cell, value_t item) {
+	cons_t *tail;
+	tail = cons(item, null());
+	if (cell != NULL)
+		CDR(cell) = wrap_cons(tail);
+	return tail;
 }
 
-value_t list_pop_head(list_t *self) {
-	value_t value;
-
-	value = self->head->value;
-	self->head = self->head->next;
-	free(self->head->prev);
-	self->head->prev = NULL;
-
-	return value;
+value_t list_peek(cons_t *cell) {
+	if (cell == NULL)
+		return null();
+	return CAR(cell);
 }
 
-value_t list_peek(list_t *self) {
-	return self->tail->value;
+int list_p(cons_t *cell) {
+	return cell == NULL || cons_p(CDR(cell));
 }
 
-value_t list_peek_head(list_t *self) {
-	return self->head->value;
+int list_empty_p(cons_t *cell) {
+	return cell == NULL;
 }
 
-int list_empty_p(list_t *self) {
-	return self->head == NULL;
-}
-
-unsigned long list_length(list_t *self) {
+unsigned long list_length(cons_t *head) {
 	unsigned long length = 0;
-	element_t *item;
-
-	item = self->head;
-
-	while (item != NULL) {
+	while (head != NULL) {
+		head = list_next(head);
 		length++;
-		item = item->next;
 	}
-
 	return length;
 }
 
-void list_set(list_t *self, unsigned long index, value_t val) {
-	element_t *item;
-	item = self->head;
+void list_print(cons_t *head) {
+	while (head != NULL) {
+		fprintf(stdout, "%ld ", unwrap_number(CAR(head)));
+		head = list_next(head);
+	}
+	fprintf(stdout, "\n");
+	fflush(stdout);
+}
 
-	while (index --> 0) {
-		item = item->next;
+cons_t *list_reverse_destructive(cons_t *head) {
+	cons_t *next, *previous;
+	previous = NULL;
+	while (head != NULL) {
+		next = unwrap_cons(CDR(head));
+		CDR(head) = wrap_cons(previous);
+		previous = head;
+		head = next;
+	}
+	return previous;
+}
+
+cons_t *list_clone(cons_t *head) {
+	cons_t *clone;
+	head = cons_clone(head);
+	clone = head;
+
+	while (clone != NULL) {
+		CDR(clone) = wrap_cons(cons_clone(unwrap_cons(CDR(clone))));
+		clone = unwrap_cons(CDR(clone));
 	}
 
-	item->value = val;
-}
-
-value_t list_get(list_t *self, unsigned long index) {
-	element_t *item;
-	item = self->head;
-
-	while (index --> 0) {
-		item = item->next;
-	}
-
-	return item->value;
-}
-
-element_t *list_begin(list_t *self) {
-	return self->head;
-}
-
-element_t *list_end(list_t *self) {
-	return self->tail;
-}
-
-element_t *next(element_t *self) {
-	return self->next;
-}
-
-element_t *prev(element_t *self) {
-	return self->prev;
-}
-
-value_t get_value(element_t *self) {
-	return self->value;
+	return head;
 }

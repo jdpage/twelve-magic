@@ -1,4 +1,5 @@
 #pragma once
-#include "dict.h"
+#include "data.h"
 
-void execute(list_t *program, list_t *stack, dict_t *scope);
+void execute(cons_t *prog, cons_t **stack, dict_t **scope);
+void do_macros(cons_t **rprog, dict_t **scope);

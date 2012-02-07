@@ -1,6 +1,5 @@
 #include <ctype.h>
 #include <stdio.h>
-#include "converters.h"
 #include "parser.h"
 
 value_t number(const char *word);
@@ -25,27 +24,29 @@ int next_word(FILE *fd, char *word, int break_on_newline);
  *
  * Words have a maximum length of 255 bytes. UTF-8 characters will take more
  * space. Words longer than 255 bytes will be truncated. 
+ *
+ * Returns a REVERSED program. It has to be passed through the macro processor
+ * before it can be run.
  */
 
-list_t *parse(FILE *fd, dict_t *scope, int break_on_newline) {
+cons_t *parse(FILE *fd, dict_t **scope, int break_on_newline) {
 	char word[256];
-	list_t *prog;
+	cons_t *prog = NULL;
+	dict_t *entry;
 	value_t val;
 
-	prog = list_new();
-
 	while (next_word(fd, word, break_on_newline)) {
-		val = dict_get(scope, word);
-		if (!null_p(val)) {
-			list_push(prog, val);
+		entry = dict_get(*scope, word);
+		if (entry != NULL) {
+			list_push(&prog, wrap_symbol(entry));
 		} else {
 			val = number(word);
-			if (null_p(val)) {
-				fprintf(stderr, "%s?\n", word);
-				list_del(prog);
-				return NULL;
+			if (!null_p(val)) {
+				list_push(&prog, val);
+			} else {
+				*scope = dict_add(*scope, word, null());
+				list_push(&prog, wrap_symbol(*scope));
 			}
-			list_push(prog, val);
 		}
 	}
 
@@ -109,7 +110,7 @@ value_t number(const char *word) {
 					acc = digit; /* acc was zero */
 					st = NUM_ST_DIGITS;
 				} else {
-					return mk_null();
+					return null();
 				}
 				break;
 			case NUM_ST_SIGN:
@@ -119,7 +120,7 @@ value_t number(const char *word) {
 					acc = digit; /* acc was zero */
 					st = NUM_ST_DIGITS;
 				} else {
-					return mk_null();
+					return null();
 				}
 				break;
 			case NUM_ST_ZERO:
@@ -139,7 +140,7 @@ value_t number(const char *word) {
 					acc = digit; /* acc was zero */
 					st = NUM_ST_DIGITS;
 				} else {
-					return mk_null();
+					return null();
 				}
 				break;
 			case NUM_ST_RADIX:
@@ -148,12 +149,12 @@ value_t number(const char *word) {
 				if ((digit = char2digit(c, radix)) != -1) {
 					acc = acc * radix + digit;
 				} else {
-					return mk_null();
+					return null();
 				}
 		}
 	}
 
-	return mk_number(sign * acc);
+	return wrap_number(sign * acc);
 }
 
 int is_end(int c, int break_on_newline) {

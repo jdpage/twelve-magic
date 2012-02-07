@@ -1,5 +1,6 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include "converters.h"
+#include "util.h"
 #include "executor.h"
 
 /*
@@ -16,21 +17,52 @@
  *     2. otherwise, call execute() on it
  * 2. Go to 1.
  */
-void execute(list_t *function, list_t *stack, dict_t *scope) {
-	element_t *iter;
+void execute(cons_t *prog, cons_t **stack, dict_t **scope) {
+	dict_t *symbol;
 	value_t val;
 
-	for (iter = list_begin(function); iter != NULL; iter = next(iter)) {
-		val = get_value(iter);
-
+	while (prog != NULL) {
+		val = CAR(prog);
 		if (number_p(val)) {
 			list_push(stack, val);
-		} else {
-			if (native_p(val)) {
-				as_native(val)(stack, scope);
+		} else if (symbol_p(val)) {
+			symbol = unwrap_symbol(val);
+			val = value(symbol);
+			if (null_p(val)) {
+				fprintf(stderr, "%s? ", key(symbol));
+				break;
 			} else {
-				execute(as_function(val), stack, scope);
+				unwrap_native(val)(stack, scope);
+			}
+		} else {
+			printf("OH DANG BRO %d:%ld\n", val.storage, val.value.literal);
+		}
+		prog = list_next(prog);
+	}
+}
+
+void do_macros(cons_t **rprog, dict_t **scope) {
+	UNUSED(scope);
+	*rprog = list_reverse_destructive(*rprog);
+	/*
+	element_t *iter;
+	value_t val;
+	list_t *slice;
+
+	for (iter = list_end(function); iter != NULL; iter = prev(iter)) {
+		val = get_value(iter);
+		if (symbol_p(val)) {
+			val = dict_value(as_symbol(val));
+			if (macro_p(val)) {
+				slice = list_slice(list_begin(function), prev(iter));
+				list_remove(function, iter);
+				if (nmacro_p(val)) {
+					as_native(val)(slice, scope);
+				} else {
+					execute(as_function(val), slice, scope);
+				}
 			}
 		}
 	}
+	*/
 }

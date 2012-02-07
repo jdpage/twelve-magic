@@ -1,0 +1,141 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CAAAAR	data.h	109;"	d
+CAAADR	data.h	110;"	d
+CAAAR	data.h	99;"	d
+CAADAR	data.h	111;"	d
+CAADDR	data.h	112;"	d
+CAADR	data.h	100;"	d
+CAAR	data.h	93;"	d
+CADAAR	data.h	113;"	d
+CADADR	data.h	114;"	d
+CADAR	data.h	101;"	d
+CADDAR	data.h	115;"	d
+CADDDR	data.h	116;"	d
+CADDR	data.h	102;"	d
+CADR	data.h	94;"	d
+CAR	data.h	89;"	d
+CDAAAR	data.h	117;"	d
+CDAADR	data.h	118;"	d
+CDAAR	data.h	103;"	d
+CDADAR	data.h	119;"	d
+CDADDR	data.h	120;"	d
+CDADR	data.h	104;"	d
+CDAR	data.h	95;"	d
+CDDAAR	data.h	121;"	d
+CDDADR	data.h	122;"	d
+CDDAR	data.h	105;"	d
+CDDDAR	data.h	123;"	d
+CDDDDR	data.h	124;"	d
+CDDDR	data.h	106;"	d
+CDDR	data.h	96;"	d
+CDR	data.h	90;"	d
+DEFAULT_RADIX	config.h	6;"	d
+ERR_OUT_OF_MEMORY	util.h	3;"	d
+MAKE	util.h	6;"	d
+NEW	util.h	5;"	d
+NUM_ST_BEGIN	parser.c	/^	NUM_ST_BEGIN,  \/* no numbers eaten yet *\/$/;"	e	enum:state	file:
+NUM_ST_DIGITS	parser.c	/^	NUM_ST_DIGITS  \/* eaten two or more digits. more non-digit chars invalid *\/$/;"	e	enum:state	file:
+NUM_ST_RADIX	parser.c	/^	NUM_ST_RADIX,  \/* radix set *\/$/;"	e	enum:state	file:
+NUM_ST_SIGN	parser.c	/^	NUM_ST_SIGN,   \/* sign eaten (further signs invalid) *\/$/;"	e	enum:state	file:
+NUM_ST_ZERO	parser.c	/^	NUM_ST_ZERO,   \/* one zero eaten, plus any signs *\/$/;"	e	enum:state	file:
+SAFE	util.h	7;"	d
+S_CONS	data.h	/^	S_CONS,    \/* a cons cell *\/$/;"	e	enum:storage
+S_LITERAL	data.h	/^	S_LITERAL, \/* a literal value *\/$/;"	e	enum:storage
+S_NATIVE	data.h	/^	S_NATIVE   \/* a native function *\/$/;"	e	enum:storage
+S_NULL	data.h	/^	S_NULL,    \/* a null value *\/$/;"	e	enum:storage
+S_POINTER	data.h	/^	S_POINTER, \/* a pointer to data *\/$/;"	e	enum:storage
+S_SYMBOL	data.h	/^	S_SYMBOL,  \/* a dictionary entry *\/$/;"	e	enum:storage
+UNUSED	util.h	11;"	d
+VERSION_DAY	config.h	3;"	d
+VERSION_MINOR	config.h	4;"	d
+VERSION_MONTH	config.h	2;"	d
+VERSION_YEAR	config.h	1;"	d
+car	cons.c	/^value_t *car(cons_t *cell) {$/;"	f
+cdr	cons.c	/^value_t *cdr(cons_t *cell) {$/;"	f
+char2digit	parser.c	/^int char2digit(char c, int radix) {$/;"	f
+cons	cons.c	/^cons_t *cons(value_t first, value_t second) {$/;"	f
+cons	data.h	/^		struct cons *cons;$/;"	m	union:value::__anon1	typeref:struct:value::__anon1::cons
+cons	data.h	/^typedef struct cons {$/;"	s
+cons_clone	cons.c	/^cons_t *cons_clone(cons_t *cell) {$/;"	f
+cons_del	cons.c	/^void cons_del(cons_t *cell) {$/;"	f
+cons_p	value.c	/^int cons_p(value_t v)    { return v.storage == S_CONS;    }$/;"	f
+cons_t	data.h	/^} cons_t;$/;"	t	typeref:struct:cons
+core_scope	core.h	/^dict_t *core_scope;$/;"	v
+default_radix	parser.h	/^int default_radix;$/;"	v
+dict	data.h	/^typedef struct dict {$/;"	s
+dict_add	dict.c	/^dict_t *dict_add(dict_t *head, const char *key, value_t value) {$/;"	f
+dict_forget	dict.c	/^dict_t *dict_forget(dict_t *head, const char *key) {$/;"	f
+dict_get	dict.c	/^dict_t *dict_get(dict_t *head, const char *key) {$/;"	f
+dict_t	data.h	/^} dict_t;$/;"	t	typeref:struct:dict
+do_macros	executor.c	/^void do_macros(cons_t **rprog, dict_t **scope) {$/;"	f
+execute	executor.c	/^void execute(cons_t *prog, cons_t **stack, dict_t **scope) {$/;"	f
+first	data.h	/^	value_t first;$/;"	m	struct:cons
+init_core	core.c	/^void init_core() {$/;"	f
+is_end	parser.c	/^int is_end(int c, int break_on_newline) {$/;"	f
+key	data.h	/^	char *key;$/;"	m	struct:dict
+key	dict.c	/^const char *key(dict_t *entry) {$/;"	f
+list_clone	list.c	/^cons_t *list_clone(cons_t *head) {$/;"	f
+list_empty_p	list.c	/^int list_empty_p(cons_t *cell) {$/;"	f
+list_free	list.c	/^void list_free(cons_t *head) {$/;"	f
+list_length	list.c	/^unsigned long list_length(cons_t *head) {$/;"	f
+list_link	list.c	/^cons_t *list_link(cons_t *cell, value_t item) {$/;"	f
+list_next	list.c	/^cons_t *list_next(cons_t *cell) {$/;"	f
+list_p	list.c	/^int list_p(cons_t *cell) {$/;"	f
+list_peek	list.c	/^value_t list_peek(cons_t *cell) {$/;"	f
+list_pop	list.c	/^value_t list_pop(cons_t **head) {$/;"	f
+list_print	list.c	/^void list_print(cons_t *head) {$/;"	f
+list_push	list.c	/^void list_push(cons_t **head, value_t item) {$/;"	f
+list_reverse_destructive	list.c	/^cons_t *list_reverse_destructive(cons_t *head) {$/;"	f
+literal	data.h	/^		long literal;$/;"	m	union:value::__anon1
+main	repl.c	/^int main(int argc, char **argv) {$/;"	f
+native	data.h	/^		native_t native;$/;"	m	union:value::__anon1
+native_add	core.c	/^void native_add(cons_t **stack, dict_t **scope) {$/;"	f
+native_divide	core.c	/^void native_divide(cons_t **stack, dict_t **scope) {$/;"	f
+native_divmod	core.c	/^void native_divmod(cons_t **stack, dict_t **scope) {$/;"	f
+native_drop	core.c	/^void native_drop(cons_t **stack, dict_t **scope) {$/;"	f
+native_dup	core.c	/^void native_dup(cons_t **stack, dict_t **scope) {$/;"	f
+native_emit	core.c	/^void native_emit(cons_t **stack, dict_t **scope) {$/;"	f
+native_exit	core.c	/^void native_exit(cons_t **stack, dict_t **scope) {$/;"	f
+native_modulo	core.c	/^void native_modulo(cons_t **stack, dict_t **scope) {$/;"	f
+native_multiply	core.c	/^void native_multiply(cons_t **stack, dict_t **scope) {$/;"	f
+native_p	value.c	/^int native_p(value_t v)  { return v.storage == S_NATIVE;  }$/;"	f
+native_print	core.c	/^void native_print(cons_t **stack, dict_t **scope) {$/;"	f
+native_subtract	core.c	/^void native_subtract(cons_t **stack, dict_t **scope) {$/;"	f
+native_t	data.h	/^typedef void (*native_t)(struct cons **stack, struct dict **scope);$/;"	t
+next	data.h	/^	struct dict *next;$/;"	m	struct:dict	typeref:struct:dict::dict
+next_word	parser.c	/^int next_word(FILE *fd, char *word, int break_on_newline) {$/;"	f
+null	value.c	/^value_t null() {$/;"	f
+null_p	value.c	/^int null_p(value_t v)    {$/;"	f
+number	parser.c	/^value_t number(const char *word) {$/;"	f
+number_p	value.c	/^int number_p(value_t v)  { return v.storage == S_LITERAL; }$/;"	f
+panic	util.c	/^void panic(const char *msg) {$/;"	f
+parse	parser.c	/^cons_t *parse(FILE *fd, dict_t **scope, int break_on_newline) {$/;"	f
+pointer	data.h	/^		void *pointer;$/;"	m	union:value::__anon1
+pointer_p	value.c	/^int pointer_p(value_t v) { return v.storage == S_POINTER; }$/;"	f
+second	data.h	/^	value_t second;$/;"	m	struct:cons
+state	parser.c	/^enum state {$/;"	g	file:
+storage	data.h	/^	storage_t storage;$/;"	m	struct:value
+storage	data.h	/^typedef enum storage {$/;"	g
+storage_t	data.h	/^} storage_t;$/;"	t	typeref:enum:storage
+symbol	data.h	/^		struct dict *symbol;$/;"	m	union:value::__anon1	typeref:struct:value::__anon1::dict
+symbol_p	value.c	/^int symbol_p(value_t v)  { return v.storage == S_SYMBOL;  }$/;"	f
+unwrap_cons	value.c	/^cons_t *unwrap_cons(value_t c) {$/;"	f
+unwrap_native	value.c	/^native_t unwrap_native(value_t f) {$/;"	f
+unwrap_number	value.c	/^long unwrap_number(value_t n) {$/;"	f
+unwrap_pointer	value.c	/^void *unwrap_pointer(value_t p) {$/;"	f
+unwrap_symbol	value.c	/^dict_t *unwrap_symbol(value_t s) {$/;"	f
+value	data.h	/^	value_t value;$/;"	m	struct:dict
+value	data.h	/^	} value;$/;"	m	struct:value	typeref:union:value::__anon1
+value	data.h	/^typedef struct value {$/;"	s
+value	dict.c	/^value_t value(dict_t *entry) {$/;"	f
+value_t	data.h	/^} value_t;$/;"	t	typeref:struct:value
+wrap_cons	value.c	/^value_t wrap_cons(cons_t *c) {$/;"	f
+wrap_native	value.c	/^value_t wrap_native(native_t f) {$/;"	f
+wrap_number	value.c	/^value_t wrap_number(long n) {$/;"	f
+wrap_pointer	value.c	/^value_t wrap_pointer(void *p) {$/;"	f
+wrap_symbol	value.c	/^value_t wrap_symbol(dict_t *s) {$/;"	f
