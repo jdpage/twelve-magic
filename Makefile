@@ -7,7 +7,7 @@ DEPFILES := $(patsubst %.c,%.d,$(SRCFILES))
 
 CFLAGS += -Wall -Wextra -Werror -g
 
-all: 12magic
+all: tags 12magic
 
 12magic: $(OBJFILES)
 	$(CC) $(CFLAGS) -o 12magic $(OBJFILES)
@@ -16,6 +16,9 @@ clean:
 	-rm 12magic *.o *.d
 
 rebuild: clean all
+
+tags: $(SRCFILES) $(HDRFILES)
+	ctags $(SRCFILES) $(HDRFILES)
 
 -include $(DEPFILES)
 
