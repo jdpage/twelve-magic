@@ -1,3 +1,9 @@
+/*
+ * dict.c
+ *
+ * Contains the implementaions of various basic dict operations.
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include "util.h"

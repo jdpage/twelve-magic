@@ -1,3 +1,9 @@
+/*
+ * repl.c
+ *
+ * Implements the main function for the interpreter.
+ */
+
 #include <stdio.h>
 #include "config.h"
 #include "util.h"

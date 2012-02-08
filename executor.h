@@ -1,3 +1,9 @@
+/*
+ * executor.h
+ *
+ * Function prototypes for executor.c
+ */
+
 #pragma once
 #include "data.h"
 

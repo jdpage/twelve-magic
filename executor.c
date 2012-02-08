@@ -1,3 +1,10 @@
+/*
+ * executor.c
+ *
+ * Contains the code which actually executes the programs. Also contains the
+ * macro processor.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"

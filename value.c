@@ -1,3 +1,9 @@
+/*
+ * value.c
+ *
+ * Implements basic value operations.
+ */
+
 #include "data.h"
 
 value_t wrap_number(long n) {

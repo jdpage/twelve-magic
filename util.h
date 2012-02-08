@@ -1,3 +1,9 @@
+/*
+ * util.h
+ *
+ * Utility macros and prototypes for util.c
+ */
+
 #pragma once
 
 #define ERR_OUT_OF_MEMORY "ran out of memory!"

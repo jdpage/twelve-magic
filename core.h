@@ -1,3 +1,9 @@
+/*
+ * core.h
+ *
+ * Prototypes for core.c
+ */
+
 #pragma once
 #include "data.h"
 

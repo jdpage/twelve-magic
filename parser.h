@@ -1,3 +1,9 @@
+/*
+ * parser.h
+ *
+ * Contains function prototypes for parser.c
+ */
+
 #pragma once
 #include <stdio.h>
 #include "data.h"

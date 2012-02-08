@@ -1,3 +1,12 @@
+/*
+ * data.h
+ *
+ * This file contains the structs for all of the core data structures in the
+ * program. It also contains function prototypes for all of the operations.
+ *
+ * See value.c, cons.c, list.c, and dict.c for implementations.
+ */
+
 #pragma once
 
 /*

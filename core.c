@@ -1,3 +1,9 @@
+/*
+ * core.c
+ *
+ * Contains the definitions for all of the core words in the language.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"

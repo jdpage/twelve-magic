@@ -1,3 +1,9 @@
+/*
+ * cons.c
+ *
+ * Contains the implementations of various basic cons operations.
+ */
+
 #include <stdlib.h>
 #include "util.h"
 #include "data.h"

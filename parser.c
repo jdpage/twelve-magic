@@ -1,3 +1,10 @@
+/*
+ * parser.c
+ *
+ * Converts textual input to a list of tokens to be processed by the macro
+ * processor.
+ */
+
 #include <ctype.h>
 #include <stdio.h>
 #include "parser.h"
