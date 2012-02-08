@@ -7,7 +7,7 @@
 #include "executor.h"
 
 int main(int argc, char **argv) {
-	cons_t *line, *stack = NULL;
+	cons_t *line, *stack = NULL, *prog;
 	unsigned long count = 0;
 	/* element_t *iter;
 	entry_t *e;
@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 		line = parse(stdin, &core_scope, 1);
 		if (line == NULL)
 			continue;
-		do_macros(&line, &core_scope);
+		prog = do_macros(line, &core_scope);
 		/* fprintf(stderr, " [");
 		for (iter = list_end(line); iter != NULL; iter = prev(iter)) {
 			v = get_value(iter);
@@ -43,9 +43,10 @@ int main(int argc, char **argv) {
 			}
 		}
 		fprintf(stderr, "] "); */
-		execute(line, &stack, &core_scope); 
+		execute(prog, &stack, &core_scope); 
 		printf(" (ok) ");
 		list_free(line);
+		list_free(prog);
 	}
 
 	return 0;

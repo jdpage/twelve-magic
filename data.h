@@ -53,6 +53,7 @@ typedef struct dict {
 	struct dict *next;
 	char *key;
 	value_t value;
+	int macro;
 } dict_t;
 
 /*
@@ -147,4 +148,6 @@ value_t value(dict_t *entry);
 dict_t *dict_add(dict_t *head, const char *key, value_t value);
 dict_t *dict_get(dict_t *head, const char *key);
 dict_t *dict_forget(dict_t *head, const char *key);
+int macro_p(dict_t *entry);
+void set_macro(dict_t *entry, int state);
 

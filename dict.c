@@ -18,6 +18,7 @@ dict_t *dict_add(dict_t *head, const char *key, value_t value) {
 	strcpy(entry->key, key);
 	entry->value = value;
 	entry->next = head;
+	entry->macro = 0;
 	return entry;
 }
 
@@ -58,3 +59,7 @@ dict_t *dict_forget(dict_t *head, const char *key) {
 	return head;
 }
 
+int macro_p(dict_t *entry) { return entry != NULL ? entry->macro : 0; }
+void set_macro(dict_t *entry, int state) {
+	entry->macro = state;
+}

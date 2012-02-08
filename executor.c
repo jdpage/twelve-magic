@@ -41,28 +41,21 @@ void execute(cons_t *prog, cons_t **stack, dict_t **scope) {
 	}
 }
 
-void do_macros(cons_t **rprog, dict_t **scope) {
-	UNUSED(scope);
-	*rprog = list_reverse_destructive(*rprog);
-	/*
-	element_t *iter;
+cons_t *do_macros(cons_t *rprog, dict_t **scope) {
+	dict_t *symbol;
 	value_t val;
-	list_t *slice;
+	cons_t *stack = NULL;
 
-	for (iter = list_end(function); iter != NULL; iter = prev(iter)) {
-		val = get_value(iter);
-		if (symbol_p(val)) {
-			val = dict_value(as_symbol(val));
-			if (macro_p(val)) {
-				slice = list_slice(list_begin(function), prev(iter));
-				list_remove(function, iter);
-				if (nmacro_p(val)) {
-					as_native(val)(slice, scope);
-				} else {
-					execute(as_function(val), slice, scope);
-				}
-			}
+	while (rprog != NULL) {
+		val = list_peek(rprog);
+		if (symbol_p(val) && macro_p(unwrap_symbol(val))) {
+			symbol = unwrap_symbol(val);
+			unwrap_native(value(symbol))(&stack, scope);
+		} else {
+			list_push(&stack, val);
 		}
+		rprog = list_next(rprog);
 	}
-	*/
+
+	return stack;
 }

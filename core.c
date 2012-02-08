@@ -162,18 +162,23 @@ void native_emit(cons_t **stack, dict_t **scope) {
  * MACRO (a --)
  * returns the pointer value of symbol a
  */
-/* void nmacro_ref(cons_t **stack, dict_t **scope) {
+void nmacro_ref(cons_t **stack, dict_t **scope) {
 	value_t v;
-	entry_t *e;
+	dict_t *e;
 	UNUSED(scope);
+
 	v = list_pop(stack);
 	if (symbol_p(v)) {
-		e = as_symbol(v);
-		v = dict_value(e);
-		v.type = T_LITERAL;
+		e = unwrap_symbol(v);
+		v = value(e);
+		v.storage = S_LITERAL;
 	}
 	list_push(stack, v);
-} */
+}
+
+void native_call(cons_t **stack, dict_t **scope) {
+	unwrap_native(list_pop(stack))(stack, scope);
+}
 
 void init_core() {
 	core_scope = NULL;
@@ -188,6 +193,8 @@ void init_core() {
 	core_scope = dict_add(core_scope, "drop", wrap_native(native_drop));
 	core_scope = dict_add(core_scope, "exit", wrap_native(native_exit));
 	core_scope = dict_add(core_scope, "emit", wrap_native(native_emit));
-/*	core_scope = dict_add(core_scope, "'", mk_macro(wrap_native(nmacro_ref)));
-	core_scope = dict_add(core_scope, "!", mk_macro(wrap_native(nmacro_macro))); */
+	core_scope = dict_add(core_scope, "call", wrap_native(native_call));
+	core_scope = dict_add(core_scope, "'", wrap_native(nmacro_ref));
+	set_macro(core_scope, 1);
+	/* core_scope = dict_add(core_scope, "!", mk_macro(wrap_native(nmacro_macro))); */
 }
